@@ -59,7 +59,6 @@ h1 em span { color: var(--ink); }
 .portrait-spark { position: absolute; z-index: 1; right: -.85rem; top: 15%; color: var(--accent); font-size: 2.6rem; line-height: 1; }
 
 .section { padding-block: 3.5rem; }
-.section-tail { margin-top: 1.25rem; color: #85756c; text-align: center; font: italic .75rem var(--display); text-shadow: 0 1px 3px #873c5020; }
 .section-title { display: flex; align-items: baseline; gap: .65rem; margin-bottom: 1.5rem; font: 400 clamp(2.6rem, 5vw, 4.3rem)/1 var(--display); letter-spacing: -.065em; }
 .section-title span { font: 1.2rem/1 sans-serif; }
 .skill-section { background: #efe8db; border-block: 1px solid var(--line); }

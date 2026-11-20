@@ -7,7 +7,7 @@ const sections = ['About', 'Skills', 'Projects', 'Certificates', 'Contact'];
 const portraits = import.meta.glob('./assets/portrait.{jpg,jpeg,png,webp,avif}', { eager: true, import: 'default' });
 const portrait = Object.values(portraits)[0];
 const certificates = Object.entries(import.meta.glob('./assets/certificates/*.{jpg,jpeg,png,webp,avif}', { eager: true, import: 'default' }))
-  .sort(([first], [second]) => first.localeCompare(second, undefined, { numeric: true }))
+  .sort(([first], [second]) => second.localeCompare(first, undefined, { numeric: true }))
   .map(([path, src]) => ({ src, alt: path.split('/').pop().replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ') }));
 const certificatePdfs = Object.entries(import.meta.glob('./assets/certificates/*.pdf', { eager: true, import: 'default' }));
 const certificatePreviews = import.meta.glob('./assets/certificates/previews/*.png', { eager: true, import: 'default' });
@@ -55,7 +55,9 @@ function About() {
 
 function Certificates() {
   const [selected, setSelected] = useState(null);
+  const [expanded, setExpanded] = useState(false);
   const dialog = useRef(null);
+  const visibleCertificates = expanded ? certificates : certificates.slice(0, 2);
 
   function openCertificate(certificate) {
     setSelected(certificate);
@@ -66,8 +68,8 @@ function Certificates() {
     <section id="certificates" className="section wrap" aria-labelledby="certificates-title">
       <SectionTitle id="certificates-title">Certificates</SectionTitle>
       {certificates.length || certificatePdfs.length ? (
-        <div className="certificate-grid">
-          {certificates.map(certificate => (
+        <div id="certificate-list" className="certificate-grid">
+          {visibleCertificates.map(certificate => (
             <button className="certificate-tile" key={certificate.src} onClick={() => openCertificate(certificate)} aria-label={`Enlarge ${certificate.alt}`}>
               <img loading="lazy" {...certificate} />
             </button>
@@ -88,7 +90,19 @@ function Certificates() {
       ) : (
         <div className="certificate-empty"><Symbol name="photo" /><p>Certificate photos coming soon</p></div>
       )}
-      <p className="section-tail">and more</p>
+      {certificates.length > 2 && (
+        <div className="actions">
+          <button
+            className="button secondary"
+            type="button"
+            aria-expanded={expanded}
+            aria-controls="certificate-list"
+            onClick={() => setExpanded(value => !value)}
+          >
+            {expanded ? 'Show Fewer Certificates' : 'View More Certificates'}
+          </button>
+        </div>
+      )}
       <dialog ref={dialog} className="lightbox" onClose={() => setSelected(null)}>
         <form method="dialog"><button className="button secondary">Close</button></form>
         {selected && <img {...selected} />}
@@ -139,7 +153,6 @@ function Projects() {
         <div className="project-grid">
           {projects.map(project => <ProjectCard key={project.name} project={project} />)}
         </div>
-        <p className="section-tail">and more</p>
       </div>
     </section>
   );

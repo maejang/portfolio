@@ -1,7 +1,7 @@
 export const skillGroups = [
   { title: 'Web & Mobile', icon: 'code', skills: ['HTML', 'CSS', 'JavaScript', 'React.js', 'React Native', 'Web development', 'Mobile development'] },
   { title: 'Backend & Data', icon: 'database', skills: ['Node.js', 'Express.js', 'REST APIs', 'Java', 'MySQL', 'MongoDB'] },
-  { title: 'Beginner', icon: 'spark', skills: ['Flutter', 'Python', 'Figma', 'Canva'] },
+  { title: 'Currently Learning', icon: 'spark', skills: ['Flutter', 'Python', 'Figma', 'Canva'] },
   { title: 'Tools & Collaboration', icon: 'tools', skills: ['VS Code', 'NetBeans', 'Android Studio Code', 'Claude Code', 'Google Docs', 'Google Drive', 'Microsoft Word', 'PowerPoint', 'Microsoft Teams', 'Prompt engineering'] },
 ];
 
